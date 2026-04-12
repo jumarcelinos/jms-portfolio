@@ -1,0 +1,174 @@
+/* ============================================================
+   DESIGN TOKENS — Portfolio 2026
+   Single source of truth for all design system values.
+   Imported by styles.css — do not link this file directly.
+   ============================================================ */
+
+:root {
+
+  /* ----------------------------------------------------------
+     COLORS — Named palette: Primary
+     These are the raw color values that define the brand.
+  ---------------------------------------------------------- */
+  --maroon:       #672527;   /* Primary highlight / accent color */
+  --black:        #393939;   /* Body text, navigation, buttons */
+  --white:        #ffffff;   /* White backgrounds and text */
+  --beige:        #E2DFCB;   /* Header, about modal background */
+  --egg-white:    #F4F5E8;   /* Page background, hero, sections */
+
+
+  /* ----------------------------------------------------------
+     COLORS — Named palette: Complementary
+     Supporting colors used throughout the site.
+  ---------------------------------------------------------- */
+  --yellow:       #D8B76A;   /* Contact section background */
+  --yellow-dark:  #7A5C00;   /* High-contrast text on --yellow background (WCAG AA) */
+  --gold:         #806321;   /* About section "01" label */
+  --green:        #548B4D;   /* About modal name accent */
+  --blue:         #2F53A1;   /* Hero card, work cards 1 & 6 */
+  --red:          #ED5D29;   /* Work cards 3 & 5 */
+  --pale-purple:  #CFAEBC;   /* Reserved */
+  --darker-beige: #CEBFA2;   /* Reserved */
+  --light-blue:   #C1E1DC;   /* About modal background */
+  --sage:         #B5D5CA;   /* NT results row background */
+  --sand:         #DADCC2;   /* Blog section background */
+
+
+  /* ----------------------------------------------------------
+     COLORS — Semantic aliases
+     These tokens describe usage, not raw color. Always point
+     to a named palette token above.
+  ---------------------------------------------------------- */
+
+  /* Backward-compat alias — use --black in new code */
+  --dark:         var(--black);
+
+  /* Section backgrounds */
+  --bg-page:      var(--egg-white);   /* Body background */
+  --bg-hero:      var(--beige);        /* Hero section background */
+  --bg-header:    var(--beige);       /* Sticky header + testimonial carousel */
+  --bg-contact:   var(--yellow);      /* Contact section */
+  --bg-social:    var(--maroon);      /* Social icon circles + footer background */
+  --bg-blog:      var(--sand);        /* Blog section background */
+
+  /* Blog tag & modal backgrounds */
+  --blog-yellow:  #F2DC9E;   /* lighter yellow for blog branding tag/modal */
+  --blog-green:   #A8D0A2;   /* lighter green for blog strategy tag/modal */
+
+  /* UI indicators */
+  --dot-available: #22C55E;  /* "Available to Work" dot — bright green for contrast on --blue */
+
+  /* Modal backgrounds */
+  --cream:        var(--beige);                /* Shared modal background */
+  --bg-about-modal: var(--light-blue);         /* About Me modal tab + body */
+  --bg-about-modal-header: #AECFCB;            /* Area behind the folder tab — slightly darker */
+  --bg-nt-results-row: var(--sage);            /* NT results ebook row background */
+  --bg-nt-gallery-col: #edeceb;               /* NT gallery section left column */
+
+  /* Project brand accents */
+  --nt-brand:  #175e50;   /* Nordic Track brand green */
+  --gz-brand:  #1d2a9f;   /* GoZeek brand blue */
+  --ef-brand:        #2d4a2e;   /* EcoFabrics brand green */
+  --ef-intro-bg:     #B39F7A;   /* EcoFabrics intro section warm tan */
+  --ef-collage-bg:   #CCBBA0;   /* EcoFabrics collage sections — lighter warm tan */
+  --ef-about-bg:     #DBD7D0;   /* EcoFabrics about section warm grey */
+  --ef-challenge-bg: #A05D41;   /* EcoFabrics challenge/hero terracotta */
+  --ef-research-bg:  #92BD91;   /* EcoFabrics research section sage green */
+  --ef-hero-bg:      #7B2D0D;   /* EcoFabrics hero header deep brown-red */
+
+  /* Work card themes */
+  --wc-blue:      var(--blue);        /* Cards 1 & 6 (also hero card, blog rect) */
+  --wc-cream:     var(--egg-white);   /* Cards 2 & 4 */
+  --wc-red:       var(--red);         /* Cards 3 & 5 */
+
+
+  /* ----------------------------------------------------------
+     COLORS — Utility
+     Fixed values; not tied to brand palette.
+  ---------------------------------------------------------- */
+  --color-muted:   #444;                       /* Secondary body text */
+  --color-subtle:  #999;                       /* Nav number labels */
+  --border-subtle: rgba(57, 57, 57, 0.12);     /* Header bottom border */
+
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY — Families
+  ---------------------------------------------------------- */
+  --font-headline:     'guyot-headline', Georgia, serif;
+  --font-body:         'Roboto', Helvetica, Arial, sans-serif;
+  --font-handwriting:  'Nothing You Could Do', cursive;  /* Hero accent words, testimonial quotes */
+  --font-rift:     'rift', sans-serif;
+  --font-mono:     'Courier Prime', 'Courier New', monospace;
+  --font-consolas: 'Consolas', monospace;
+
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY — Type scale
+     Reference: 1px = 1pt in screen design (no rem conversion)
+  ---------------------------------------------------------- */
+  --text-h1:   50px;   /* Guyot Headline Bold   — hero titles */
+  --text-hero: 70px;   /* Guyot Headline Bold   — hero section headline */
+  --text-h1-sm: 58px;  /* Rift Bold              — NT intro numbers */
+  --text-h2:   40px;   /* Guyot Headline Bold   — section titles */
+  --text-h3:   32px;   /* Guyot Headline Regular — subsection titles */
+  --text-h4:   30px;   /* Roboto Bold            — card titles */
+  --text-h5:   20px;   /* Roboto Regular         — labels, subtitles */
+  --text-body: 18px;   /* Roboto Regular         — body copy, nav */
+  --text-btn:  16px;   /* Roboto Bold            — buttons, nav numbers */
+  --text-logo: 32px;   /* Roboto Bold            — wordmark */
+  --text-sm:   14px;   /* Roboto Bold            — tags, author labels */
+
+
+  /* ----------------------------------------------------------
+     SPACING — Base scale
+     Use these for padding, margin, and gap values.
+  ---------------------------------------------------------- */
+  --space-xs:  8px;    /* Social icon gap, tight gaps */
+  --space-sm:  14px;   /* Button vertical padding, small gaps */
+  --space-md:  28px;   /* Button vertical margin, about gutter */
+  --space-lg:  48px;   /* Header padding, nav gap, testimonial sides */
+  --space-xl:  80px;   /* Hero/section vertical padding, hero card padding */
+  --space-2xl: 100px;  /* About section vertical padding */
+  --space-3xl: 140px;  /* Blog modal content horizontal padding */
+
+
+  /* ----------------------------------------------------------
+     BUTTONS — .btn-outline
+  ---------------------------------------------------------- */
+  --btn-padding-y:      14px;
+  --btn-padding-x:      40px;
+  --btn-font-size:      16px;   /* Same as --text-btn */
+  --btn-font-weight:    700;
+  --btn-letter-spacing: 0.12em;
+  --btn-border-width:   1.5px;
+  --btn-bg:             var(--dark);
+  --btn-color:          var(--white);
+  --btn-border-color:   var(--dark);
+
+
+  /* ----------------------------------------------------------
+     ICONS & LOGOS
+  ---------------------------------------------------------- */
+  --icon-social-size:      36px;   /* Social icon circle container (W & H) */
+  --icon-social-img:       16px;   /* SVG icon inside the circle (W & H) */
+  --icon-arrow-width:      36px;   /* Carousel & page arrow width */
+  --logo-jms-height:       64px;   /* JMS logomark in header & footer */
+
+
+  /* ----------------------------------------------------------
+     TRANSITIONS
+  ---------------------------------------------------------- */
+  --transition-fast: 0.2s;    /* Hover: opacity, color, transform */
+  --transition-std:  0.25s;   /* Buttons: background, border, color */
+
+
+  /* ----------------------------------------------------------
+     BORDER RADIUS
+     Currently: all interactive elements are sharp (0px radius).
+     Social icon circles use border-radius: 50% (not a token).
+  ---------------------------------------------------------- */
+  --radius-none:   0px;
+  --radius-circle: 50%;
+  --radius-pill:   40px;  /* Pill/badge shape — hero badge, bio label */
+
+}

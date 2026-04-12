@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design System — Portfolio 2026</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://use.typekit.net/lqr0war.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="design-tokens.css">
+
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--beige);
+      color: var(--dark);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    /* ── Page layout ── */
+    .ds-page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 48px 120px;
+    }
+
+    /* ── Page header ── */
+    .ds-page-header {
+      margin-bottom: 80px;
+      border-bottom: 2px solid var(--dark);
+      padding-bottom: 40px;
+    }
+    .ds-page-header h1 {
+      font-family: var(--font-headline);
+      font-size: var(--text-h1);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .ds-page-header p {
+      font-size: 18px;
+      color: var(--color-muted);
+    }
+
+    /* ── Section ── */
+    .ds-section {
+      margin-bottom: 80px;
+    }
+    .ds-section-title {
+      font-family: var(--font-headline);
+      font-size: var(--text-h2);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 32px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .ds-section-subtitle {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-subtle);
+      margin-bottom: 20px;
+    }
+
+    /* ── Color swatches ── */
+    .ds-swatch-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .ds-swatch {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 148px;
+    }
+    .ds-swatch-block {
+      width: 148px;
+      height: 100px;
+      border: 1px solid rgba(57,57,57,0.12);
+    }
+    .ds-swatch-label {
+      font-size: 13px;
+      line-height: 1.4;
+    }
+    .ds-swatch-token {
+      font-weight: 700;
+      font-size: 12px;
+      font-family: monospace;
+      display: block;
+    }
+    .ds-swatch-hex {
+      color: var(--color-muted);
+      font-size: 12px;
+      font-family: monospace;
+    }
+
+    /* ── Typography scale ── */
+    .ds-type-row {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .ds-type-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 24px;
+      align-items: baseline;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .ds-type-item:last-child { border-bottom: none; }
+    .ds-type-meta {
+      font-size: 12px;
+      color: var(--color-muted);
+      line-height: 1.5;
+    }
+    .ds-type-meta strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 2px;
+      font-family: monospace;
+    }
+
+    /* ── Buttons ── */
+    .btn-outline {
+      display: inline-block;
+      padding: var(--btn-padding-y) var(--btn-padding-x);
+      font-family: var(--font-body);
+      font-size: var(--btn-font-size);
+      font-weight: var(--btn-font-weight);
+      letter-spacing: var(--btn-letter-spacing);
+      text-transform: uppercase;
+      background: var(--btn-bg);
+      color: var(--btn-color);
+      border: var(--btn-border-width) solid var(--btn-border-color);
+      border-radius: var(--radius-none);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background var(--transition-std), color var(--transition-std), border-color var(--transition-std);
+    }
+    .btn-outline:hover {
+      background: transparent;
+      color: var(--dark);
+    }
+    .ds-btn-row {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .btn-hover-demo {
+      background: transparent;
+      color: var(--dark);
+      border: var(--btn-border-width) solid var(--btn-border-color);
+    }
+
+    /* ── Spacing ── */
+    .ds-spacing-row {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .ds-spacing-item {
+      display: grid;
+      grid-template-columns: 100px auto 1fr;
+      align-items: center;
+      gap: 16px;
+    }
+    .ds-spacing-bar {
+      height: 20px;
+      background: var(--maroon);
+      opacity: 0.7;
+    }
+    .ds-spacing-meta {
+      font-size: 12px;
+      font-family: monospace;
+      color: var(--color-muted);
+    }
+
+    /* ── Border radius ── */
+    .ds-radius-row {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+    .ds-radius-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .ds-radius-box {
+      width: 80px;
+      height: 80px;
+      background: var(--dark);
+    }
+    .ds-radius-circle-box {
+      width: 80px;
+      height: 80px;
+      background: var(--dark);
+      border-radius: 50%;
+    }
+    .ds-radius-chip {
+      padding: 8px 20px;
+      border: 1.5px solid var(--dark);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .ds-radius-label {
+      font-size: 12px;
+      font-family: monospace;
+      color: var(--color-muted);
+      text-align: center;
+    }
+
+    /* ── Icons ── */
+    .ds-icon-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      align-items: flex-start;
+    }
+    .ds-icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .ds-icon-circle {
+      width: 36px;
+      height: 36px;
+      background: var(--maroon);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ds-icon-circle img {
+      width: 16px;
+      height: 16px;
+      filter: brightness(0) invert(1);
+      display: block;
+    }
+    .ds-icon-plain img {
+      display: block;
+    }
+    .ds-icon-label {
+      font-size: 11px;
+      font-family: monospace;
+      color: var(--color-muted);
+      text-align: center;
+    }
+
+    /* ── Component samples ── */
+    /* Nav bar sample */
+    .ds-nav-sample {
+      background: var(--bg-header);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ds-nav-wordmark {
+      font-family: var(--font-body);
+      font-size: var(--text-logo);
+      font-weight: 700;
+    }
+    .ds-nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .ds-nav-links a {
+      font-family: var(--font-body);
+      font-size: var(--text-body);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      color: var(--dark);
+    }
+    .ds-nav-links a.active { color: var(--maroon); }
+    .ds-nav-socials {
+      display: flex;
+      gap: 8px;
+    }
+    .ds-nav-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--maroon);
+      border-radius: 50%;
+    }
+
+    /* Work card sample */
+    .ds-card-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .ds-card {
+      aspect-ratio: 640/845;
+      position: relative;
+      overflow: hidden;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .ds-card-tag {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-radius: 0;
+    }
+    .ds-card-title {
+      font-family: var(--font-body);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .ds-card-desc {
+      font-size: 13px;
+      opacity: 0.75;
+    }
+
+    /* Blog tag chip */
+    .ds-tag-chip {
+      display: inline-block;
+      padding: 4px 14px;
+      border: 1.5px solid var(--dark);
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .ds-tag-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Contact section sample */
+    .ds-contact-sample {
+      background: var(--bg-contact);
+      padding: 40px;
+    }
+    .ds-contact-sample h3 {
+      font-family: var(--font-headline);
+      font-size: var(--text-h3);
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    .ds-input-sample {
+      border: none;
+      border-bottom: 1.5px solid var(--dark);
+      background: transparent;
+      padding: 10px 0;
+      font-family: var(--font-body);
+      font-size: 16px;
+      width: 100%;
+      outline: none;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    /* Footer sample */
+    .ds-footer-sample {
+      background: var(--bg-social);
+      color: var(--white);
+      padding: 32px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ds-footer-wordmark {
+      font-family: var(--font-body);
+      font-size: 24px;
+      font-weight: 700;
+    }
+    .ds-footer-note {
+      font-size: 13px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+
+<div class="ds-page">
+
+  <!-- ── PAGE HEADER ── -->
+  <header class="ds-page-header">
+    <h1>Design System</h1>
+    <p>Portfolio 2026 — Visual reference for colors, typography, spacing, and components.</p>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 1. COLOR PALETTE                                -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">1. Color Palette</h2>
+
+    <p class="ds-section-subtitle">Primary</p>
+    <div class="ds-swatch-row">
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#672527;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--maroon</span>
+          <span class="ds-swatch-hex">#672527</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#393939;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--black</span>
+          <span class="ds-swatch-hex">#393939</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#ffffff; border: 1px solid rgba(57,57,57,0.2);"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--white</span>
+          <span class="ds-swatch-hex">#ffffff</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#E2DFCB;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--beige</span>
+          <span class="ds-swatch-hex">#E2DFCB</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#F4F5E8;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--egg-white</span>
+          <span class="ds-swatch-hex">#F4F5E8</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="ds-section-subtitle">Complementary</p>
+    <div class="ds-swatch-row">
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#D8B76A;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--yellow</span>
+          <span class="ds-swatch-hex">#D8B76A</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#548B4D;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--green</span>
+          <span class="ds-swatch-hex">#548B4D</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#2F53A1;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--blue</span>
+          <span class="ds-swatch-hex">#2F53A1</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#ED5D29;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--red</span>
+          <span class="ds-swatch-hex">#ED5D29</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#CFAEBC;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--pale-purple</span>
+          <span class="ds-swatch-hex">#CFAEBC</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#CEBFA2;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--darker-beige</span>
+          <span class="ds-swatch-hex">#CEBFA2</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#C1E1DC;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--light-blue</span>
+          <span class="ds-swatch-hex">#C1E1DC</span>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="ds-section-subtitle">Semantic Aliases</p>
+    <div class="ds-swatch-row">
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#F4F5E8;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--bg-page</span>
+          <span class="ds-swatch-hex">→ --egg-white</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#E2DFCB;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--bg-header</span>
+          <span class="ds-swatch-hex">→ --beige</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#672527;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--bg-social</span>
+          <span class="ds-swatch-hex">→ --maroon</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#D8B76A;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--bg-contact</span>
+          <span class="ds-swatch-hex">→ --yellow</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#F4F5E8;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--bg-hero / --bg-blog</span>
+          <span class="ds-swatch-hex">→ --egg-white</span>
+        </div>
+      </div>
+
+      <div class="ds-swatch">
+        <div class="ds-swatch-block" style="background:#E2DFCB;"></div>
+        <div class="ds-swatch-label">
+          <span class="ds-swatch-token">--cream</span>
+          <span class="ds-swatch-hex">→ --beige</span>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 2. TYPOGRAPHY                                   -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">2. Typography</h2>
+
+    <div class="ds-type-row">
+
+      <div class="ds-type-item">
+        <div class="ds-type-meta">
+          <strong>--text-h1</strong>
+          50px · Guyot Headline 700
+        </div>
+        <div style="font-family:var(--font-headline);font-size:var(--text-h1);font-weight:700;line-height:1.1;">
+          Juliana <em style="font-style:italic;font-weight:400;">Marcelino</em>
+        </div>
+      </div>
+
+      <div class="ds-type-item">
+        <div class="ds-type-meta">
+          <strong>--text-h2</strong>
+          40px · Guyot Headline 700
+        </div>
+        <div style="font-family:var(--font-headline);font-size:var(--text-h2);font-weight:700;line-height:1.15;">
+          Latest <em style="font-style:italic;font-weight:400;">Work</em>
+        </div>
+      </div>
+
+      <div class="ds-type-item">
+        <div class="ds-type-meta">
+          <strong>--text-h3</strong>
+          32px · Guyot Headline 400
+        </div>
+        <div style="font-family:var(--font-headline);font-size:var(--text-h3);font-weight:400;line-height:1.2;">
+          A curiosity-driven designer
+        </div>
+      </div>
+
+      <div class="ds-type-item">
+        <div class="ds-type-meta">
+          <strong>--text-h4</strong>
+          30px · Roboto 700
+        </div>
+        <div style="font-size:var(--text-h4);font-weight:700;line-height:1.25;">
+          GoZeek Mobile App
+        </div>
+      </div>
+
+      <div class="ds-type-item">
+        <div class="ds-type-meta">
+          <strong>--text-h5</strong>
+          20px · Roboto 400
+        </div>
+        <div style="font-size:var(--text-h5);font-weight:400;line-height:1.3;">
+          UX Design · Visual Design
+        </div>
+      </div>
+
+      <div class="ds-type-item">
+        <div class="ds-type-meta">
+          <strong>--text-body</strong>
+          18px · Roboto 400
+        </div>
+        <div style="font-size:var(--text-body);font-weight:400;line-height:1.65;">
+          Designing meaningful experiences that connect people to what they love — through clear thinking, bold choices, and careful craft.
+        </div>
+      </div>
+
+      <div class="ds-type-item">
+        <div class="ds-type-meta">
+          <strong>--text-btn</strong>
+          16px · Roboto 700 · 0.12em spacing
+        </div>
+        <div style="font-size:var(--text-btn);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;">
+          View Case Study
+        </div>
+      </div>
+
+      <div class="ds-type-item">
+        <div class="ds-type-meta">
+          <strong>--text-logo</strong>
+          32px · Roboto 700
+        </div>
+        <div style="font-size:var(--text-logo);font-weight:700;line-height:1.1;">
+          Jumar
+        </div>
+      </div>
+
+      <div class="ds-type-item">
+        <div class="ds-type-meta">
+          <strong>--text-sm</strong>
+          14px · Roboto 700
+        </div>
+        <div style="font-size:var(--text-sm);font-weight:700;letter-spacing:0.06em;text-transform:uppercase;">
+          UX Design
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 3. BUTTONS                                      -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">3. Buttons</h2>
+
+    <div class="ds-btn-row">
+      <a href="#" class="btn-outline">View Case Study</a>
+      <a href="#" class="btn-outline btn-hover-demo">Hover State</a>
+    </div>
+
+    <div style="margin-top: 24px; font-size: 13px; color: var(--color-muted);">
+      <strong style="color: var(--dark);">Class:</strong> .btn-outline &nbsp;·&nbsp;
+      <strong style="color: var(--dark);">Padding:</strong> 14px 40px &nbsp;·&nbsp;
+      <strong style="color: var(--dark);">Font:</strong> Roboto 16px / 700 &nbsp;·&nbsp;
+      <strong style="color: var(--dark);">Letter spacing:</strong> 0.12em &nbsp;·&nbsp;
+      <strong style="color: var(--dark);">Border radius:</strong> 0px
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 4. SPACING                                      -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">4. Spacing</h2>
+
+    <div class="ds-spacing-row">
+      <div class="ds-spacing-item">
+        <span class="ds-spacing-meta">--space-xs · 8px</span>
+        <div class="ds-spacing-bar" style="width: 8px;"></div>
+        <span class="ds-spacing-meta">Social icon gap</span>
+      </div>
+      <div class="ds-spacing-item">
+        <span class="ds-spacing-meta">--space-sm · 14px</span>
+        <div class="ds-spacing-bar" style="width: 14px;"></div>
+        <span class="ds-spacing-meta">Button vertical padding</span>
+      </div>
+      <div class="ds-spacing-item">
+        <span class="ds-spacing-meta">--space-md · 28px</span>
+        <div class="ds-spacing-bar" style="width: 28px;"></div>
+        <span class="ds-spacing-meta">About gutter</span>
+      </div>
+      <div class="ds-spacing-item">
+        <span class="ds-spacing-meta">--space-lg · 48px</span>
+        <div class="ds-spacing-bar" style="width: 48px;"></div>
+        <span class="ds-spacing-meta">Header padding, nav gap</span>
+      </div>
+      <div class="ds-spacing-item">
+        <span class="ds-spacing-meta">--space-xl · 80px</span>
+        <div class="ds-spacing-bar" style="width: 80px;"></div>
+        <span class="ds-spacing-meta">Hero &amp; section vertical padding</span>
+      </div>
+      <div class="ds-spacing-item">
+        <span class="ds-spacing-meta">--space-2xl · 100px</span>
+        <div class="ds-spacing-bar" style="width: 100px;"></div>
+        <span class="ds-spacing-meta">About section vertical padding</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 5. BORDER RADIUS                                -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">5. Border Radius</h2>
+
+    <div class="ds-radius-row">
+      <div class="ds-radius-item">
+        <div class="ds-radius-box"></div>
+        <span class="ds-radius-label">--radius-none<br>0px<br>Buttons, inputs, card tags</span>
+      </div>
+      <div class="ds-radius-item">
+        <div class="ds-radius-circle-box"></div>
+        <span class="ds-radius-label">--radius-circle<br>50%<br>Social icon containers</span>
+      </div>
+      <div class="ds-radius-item">
+        <div class="ds-radius-chip">Tag Chip</div>
+        <span class="ds-radius-label">(no token)<br>20px<br>Blog &amp; modal tag chips</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 6. ICONS                                        -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">6. Icons</h2>
+
+    <div class="ds-icon-row">
+
+      <div class="ds-icon-item">
+        <div class="ds-icon-circle">
+          <img src="images/linkedin.svg" alt="LinkedIn">
+        </div>
+        <span class="ds-icon-label">linkedin.svg<br>16×16 in 36×36 circle</span>
+      </div>
+
+      <div class="ds-icon-item">
+        <div class="ds-icon-circle">
+          <img src="images/instagram.svg" alt="Instagram">
+        </div>
+        <span class="ds-icon-label">instagram.svg<br>16×16 in 36×36 circle</span>
+      </div>
+
+      <div class="ds-icon-item">
+        <div class="ds-icon-circle">
+          <img src="images/mail.svg" alt="Mail">
+        </div>
+        <span class="ds-icon-label">mail.svg<br>16×16 in 36×36 circle</span>
+      </div>
+
+      <div class="ds-icon-item ds-icon-plain">
+        <img src="images/arrow.svg" alt="Arrow" style="width:36px;">
+        <span class="ds-icon-label">arrow.svg<br>36px wide</span>
+      </div>
+
+      <div class="ds-icon-item ds-icon-plain">
+        <img src="images/close-window.svg" alt="Close" style="width:28px;height:28px;">
+        <span class="ds-icon-label">close-window.svg<br>auto / modal close</span>
+      </div>
+
+      <div class="ds-icon-item ds-icon-plain">
+        <img src="images/jms-logo.svg" alt="JMS Logo" style="height:80px;width:auto;">
+        <span class="ds-icon-label">jms-logo.svg<br>80px height</span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- 7. COMPONENTS                                   -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="ds-section">
+    <h2 class="ds-section-title">7. Components</h2>
+
+    <!-- Header bar -->
+    <p class="ds-section-subtitle">Header / Navigation</p>
+    <div class="ds-nav-sample" style="margin-bottom:40px;">
+      <span class="ds-nav-wordmark">Jumar</span>
+      <ul class="ds-nav-links">
+        <li><a href="#">About</a></li>
+        <li><a href="#" class="active">Work</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+      <div class="ds-nav-socials">
+        <div class="ds-nav-icon"></div>
+        <div class="ds-nav-icon"></div>
+        <div class="ds-nav-icon"></div>
+      </div>
+    </div>
+
+    <!-- Work cards -->
+    <p class="ds-section-subtitle">Work Cards</p>
+    <div class="ds-card-row" style="margin-bottom:40px;">
+
+      <div class="ds-card" style="background:var(--blue); color:var(--white);">
+        <div class="ds-card-tag" style="background:var(--blue); color:var(--white); border-bottom:1px solid rgba(255,255,255,0.2); border-right:1px solid rgba(255,255,255,0.2);">UX Design</div>
+        <div class="ds-card-title">Card 1 · 6<br>--blue</div>
+        <div class="ds-card-desc">#2F53A1</div>
+      </div>
+
+      <div class="ds-card" style="background:var(--egg-white); color:var(--dark);">
+        <div class="ds-card-tag" style="background:var(--egg-white); color:var(--dark); border-bottom:1px solid rgba(57,57,57,0.15); border-right:1px solid rgba(57,57,57,0.15);">Branding</div>
+        <div class="ds-card-title">Card 2 · 4<br>--egg-white</div>
+        <div class="ds-card-desc">#F4F5E8</div>
+      </div>
+
+      <div class="ds-card" style="background:var(--red); color:var(--white);">
+        <div class="ds-card-tag" style="background:var(--red); color:var(--white); border-bottom:1px solid rgba(255,255,255,0.2); border-right:1px solid rgba(255,255,255,0.2);">Motion</div>
+        <div class="ds-card-title">Card 3 · 5<br>--red</div>
+        <div class="ds-card-desc">#ED5D29</div>
+      </div>
+
+    </div>
+
+    <!-- Social icon circle -->
+    <p class="ds-section-subtitle">Social Icon Circles</p>
+    <div style="display:flex; gap:8px; align-items:center; margin-bottom:40px;">
+      <div style="width:36px;height:36px;background:var(--maroon);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+        <img src="images/linkedin.svg" alt="LinkedIn" style="width:16px;height:16px;filter:brightness(0) invert(1);">
+      </div>
+      <div style="width:36px;height:36px;background:var(--maroon);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+        <img src="images/instagram.svg" alt="Instagram" style="width:16px;height:16px;filter:brightness(0) invert(1);">
+      </div>
+      <div style="width:36px;height:36px;background:var(--maroon);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+        <img src="images/mail.svg" alt="Mail" style="width:16px;height:16px;filter:brightness(0) invert(1);">
+      </div>
+      <span style="font-size:12px;color:var(--color-muted);margin-left:12px;font-family:monospace;">36×36px · --maroon bg · icon brightness(0) invert(1)</span>
+    </div>
+
+    <!-- Blog tag chips -->
+    <p class="ds-section-subtitle">Tag Chips (Blog &amp; Modals)</p>
+    <div class="ds-tag-row" style="margin-bottom:40px;">
+      <span class="ds-tag-chip">UX Design</span>
+      <span class="ds-tag-chip">Branding</span>
+      <span class="ds-tag-chip">Motion</span>
+      <span class="ds-tag-chip">Research</span>
+    </div>
+
+    <!-- Contact section -->
+    <p class="ds-section-subtitle">Contact Section</p>
+    <div class="ds-contact-sample" style="margin-bottom:40px;">
+      <h3>Let's work together.</h3>
+      <input class="ds-input-sample" type="text" placeholder="Your name" style="color:var(--dark);">
+      <input class="ds-input-sample" type="email" placeholder="Your email" style="color:var(--dark);">
+      <a href="#" class="btn-outline" style="margin-top:8px;">Send Message</a>
+    </div>
+
+    <!-- Footer -->
+    <p class="ds-section-subtitle">Footer</p>
+    <div class="ds-footer-sample">
+      <span class="ds-footer-wordmark">Jumar</span>
+      <span class="ds-footer-note">--bg-social · --maroon · #672527</span>
+    </div>
+
+  </section>
+
+</div><!-- /ds-page -->
+</body>
+</html>
