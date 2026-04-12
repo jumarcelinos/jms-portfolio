@@ -8,3 +8,6 @@ Thumbs.db
 # Internal workflow files
 CLAUDE.md
 _docs/
+
+# Large binary files
+images/jms-portfolio-2026.pdf
