@@ -4,3 +4,7 @@ Thumbs.db
 
 # Adobe XD source file (large binary, no benefit in git)
 *.xd
+
+# Internal workflow files
+CLAUDE.md
+_docs/
