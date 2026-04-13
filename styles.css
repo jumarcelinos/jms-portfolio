@@ -303,18 +303,19 @@ header {
 
 .nav-sidebar-cta {
   margin-top: auto;
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
   font-family: var(--font-body);
-  font-size: var(--text-btn);
+  font-size: var(--btn-md-font-size);
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--dark);
   background: var(--white);
   border: var(--btn-border-width) solid var(--white);
-  padding: var(--btn-padding-y) var(--btn-padding-x);
+  padding: var(--btn-md-padding-y) var(--btn-md-padding-x);
   text-decoration: none;
   transition: opacity var(--transition-fast);
 }
@@ -461,12 +462,12 @@ nav a:hover .nav-label { text-decoration: underline; text-underline-offset: 3px;
   gap: var(--space-xs);
   background: var(--btn-bg);
   color: var(--btn-color);
-  font-size: var(--text-btn);
+  font-size: var(--btn-md-font-size);
   font-weight: var(--btn-font-weight);
   letter-spacing: var(--btn-letter-spacing);
   text-transform: uppercase;
   text-decoration: none;
-  padding: var(--btn-padding-y) var(--btn-padding-x);
+  padding: var(--btn-md-padding-y) var(--btn-md-padding-x);
   border: var(--btn-border-width) solid var(--btn-border-color);
   transition: background var(--transition-std), border-color var(--transition-std), color var(--transition-std);
 }
@@ -489,27 +490,29 @@ nav a:hover .nav-label { text-decoration: underline; text-underline-offset: 3px;
 ======================================== */
 .hero {
   grid-column: full-start / full-end;
+  display: grid;
+  grid-template-columns: subgrid;
   min-height: 520px;
 }
 
 .hero-content {
+  grid-column: full-start / full-end;
   background: var(--bg-hero);
   background-image:
     linear-gradient(to right, transparent calc(20% - 0.5px), rgba(57,57,57,0.18) calc(20% - 0.5px), rgba(57,57,57,0.18) calc(20% + 0.5px), transparent calc(20% + 0.5px)),
     linear-gradient(to right, transparent calc(40% - 0.5px), rgba(57,57,57,0.18) calc(40% - 0.5px), rgba(57,57,57,0.18) calc(40% + 0.5px), transparent calc(40% + 0.5px)),
     linear-gradient(to right, transparent calc(60% - 0.5px), rgba(57,57,57,0.18) calc(60% - 0.5px), rgba(57,57,57,0.18) calc(60% + 0.5px), transparent calc(60% + 0.5px)),
     linear-gradient(to right, transparent calc(80% - 0.5px), rgba(57,57,57,0.18) calc(80% - 0.5px), rgba(57,57,57,0.18) calc(80% + 0.5px), transparent calc(80% + 0.5px));
-  display: flex;
+  display: grid;
+  grid-template-columns: subgrid;
   align-items: center;
-  justify-content: center;
   min-height: inherit;
 }
 
 /* Inner wrapper */
 .hero-inner {
-  width: 100%;
-  max-width: 1255px;
-  padding: var(--space-xl) var(--space-lg);
+  grid-column: content-start / content-end;
+  padding: var(--space-xl) 0;
 }
 
 .hero-inner h1 { color: var(--dark); font-size: var(--text-hero); }
@@ -1074,6 +1077,16 @@ nav a:hover .nav-label { text-decoration: underline; text-underline-offset: 3px;
 .btn-outline:hover {
   background: transparent;
   color: var(--dark);
+}
+
+/* Button size modifiers — combine with .btn-outline: class="btn-outline btn--md" */
+.btn--md {
+  padding: var(--btn-md-padding-y) var(--btn-md-padding-x);
+  font-size: var(--btn-md-font-size);
+}
+.btn--sm {
+  padding: var(--btn-sm-padding-y) var(--btn-sm-padding-x);
+  font-size: var(--btn-sm-font-size);
 }
 
 /* Text-link CTA — mirrors hero "Explore Work" style */
@@ -2128,7 +2141,7 @@ footer {
 /* ── Four equal columns, natural heights ── */
 .footer-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 2fr 1fr 1fr 1fr;
   align-items: start;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);   /* bottom rule */
 }
@@ -2138,11 +2151,13 @@ footer {
   padding: var(--space-xl);
 }
 
-/* Cols 2, 3, 4: dividers removed — natural column heights */
+/* Cols 2, 3, 4: tighter horizontal padding */
 .footer-col-nav-wrap,
 .footer-col-contact,
 .footer-col-follow {
   position: relative;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
 }
 
 /* ── Col 1: subscribe heading + form ── */

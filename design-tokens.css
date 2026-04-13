@@ -145,6 +145,15 @@
   --btn-color:          var(--white);
   --btn-border-color:   var(--dark);
 
+  /* Button sizes — default above is lg */
+  --btn-md-padding-y:   10px;
+  --btn-md-padding-x:   28px;
+  --btn-md-font-size:   14px;
+
+  --btn-sm-padding-y:   7px;
+  --btn-sm-padding-x:   16px;
+  --btn-sm-font-size:   13px;
+
 
   /* ----------------------------------------------------------
      ICONS & LOGOS
