@@ -624,7 +624,7 @@ nav a:hover .nav-label { text-decoration: underline; text-underline-offset: 3px;
   width: 100%;
   max-width: 640px;
   height: 100%;
-  padding: var(--space-xl) var(--space-lg);
+  padding: var(--space-xl) 20px;
   text-align: center;
 }
 
@@ -696,6 +696,11 @@ nav a:hover .nav-label { text-decoration: underline; text-underline-offset: 3px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
+}
+
+.about-bio-inner .btn-text-link {
+  align-self: flex-start;
 }
 
 /* Smaller social icons in about context */
@@ -989,6 +994,7 @@ nav a:hover .nav-label { text-decoration: underline; text-underline-offset: 3px;
   flex-direction: column;
   flex: 1;
   justify-content: center;
+  align-items: center;
   animation: vtab-open 0.25s ease;
 }
 
@@ -1253,11 +1259,11 @@ nav a:hover .nav-label { text-decoration: underline; text-underline-offset: 3px;
 /* Page 1: equal 3 cols */
 .testi-page--1 { grid-template-columns: repeat(3, 1fr); }
 
-/* Page 2: two equal cols (was 3, David Sato duplicate removed) */
-.testi-page--2 { grid-template-columns: repeat(2, 1fr); }
+/* Page 2: three equal cols */
+.testi-page--2 { grid-template-columns: repeat(3, 1fr); }
 
-/* Page 3: wide last col (1fr + 1fr + 2fr) */
-.testi-page--3 { grid-template-columns: 1fr 1fr 2fr; }
+/* Page 3: equal cols */
+.testi-page--3 { grid-template-columns: repeat(3, 1fr); }
 
 .testi-card {
   background: var(--egg-white);
@@ -1466,12 +1472,16 @@ nav a:hover .nav-label { text-decoration: underline; text-underline-offset: 3px;
 /* Skills panel */
 .skills-grid {
   display: grid;
-  grid-template-columns: 1fr auto 1fr auto 1fr;
+  grid-template-columns: 1fr auto 1fr auto 1.5fr;
   gap: 0 var(--space-lg);
   padding: var(--space-md) 0 var(--space-lg);
 }
 .skills-group {
   flex: 1;
+}
+.skills-group--languages {
+  display: flex;
+  flex-direction: column;
 }
 .skills-group-label {
   font-size: var(--text-sm);
@@ -1493,9 +1503,10 @@ nav a:hover .nav-label { text-decoration: underline; text-underline-offset: 3px;
   margin-top: var(--space-md);
 }
 .skill-tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: var(--text-sm);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1558,45 +1569,68 @@ nav a:hover .nav-label { text-decoration: underline; text-underline-offset: 3px;
   color: var(--color-muted);
 }
 
-/* Languages horizontal bar chart */
+/* Languages vertical bar chart */
 .lang-list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
+  flex-direction: row;
+  align-items: flex-end;
+  gap: var(--space-sm);
+  flex: 1;
 }
 .lang-item {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  flex: 1 1 0%;
+  min-width: 0;
+  height: 100%;
 }
+.lang-bar-track {
+  width: 100%;
+  flex: 1;
+  background: var(--bg-blog);
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.lang-bar-fill {
+  width: 100%;
+  background: transparent;
+  border: 2px solid var(--dark);
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 8px;
+}
+.lang-bar--native       { height: 100%; }
+.lang-bar--fluent       { height: 80%; }
+.lang-bar--intermediate { height: 50%; }
 .lang-label-row {
   font-family: var(--font-body);
   font-size: var(--text-sm);
   font-weight: 700;
   color: var(--dark);
+  text-align: left;
+  line-height: 1.4;
 }
-.lang-bar-track {
-  height: 8px;
-  background: var(--border-subtle);
-  border-radius: 0;
-  overflow: hidden;
+.lang-percent {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--dark);
+  display: block;
+  margin-bottom: 2px;
 }
-.lang-bar-fill {
-  height: 100%;
-  background: var(--dark);
-  border-radius: 0;
-}
-.lang-bar--native       { width: 100%; }
-.lang-bar--fluent       { width: 80%; }
-.lang-bar--intermediate { width: 58%; }
 .lang-level {
   font-family: var(--font-body);
-  font-size: 11px;
+  font-size: var(--text-sm);
   font-weight: 400;
-  color: var(--color-muted);
+  color: var(--dark);
+  display: block;
 }
 
 
