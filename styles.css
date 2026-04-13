@@ -57,10 +57,10 @@ body {
 
   display: grid;
   grid-template-columns:
-    [full-start]    minmax(40px, 1fr)
+    [full-start]    minmax(40px, 120px)
     [content-start] 1fr
     [col3-start]    1fr
-    [content-end]   minmax(40px, 1fr)
+    [content-end]   minmax(40px, 120px)
     [full-end];
   /* rows stack naturally — no row gap */
 }
@@ -4778,6 +4778,18 @@ nav a:focus-visible,
    RESPONSIVE — Breakpoints
    (All rules above are desktop-first.)
 ======================================== */
+
+/* ── Large screens — 1800px and up ────── */
+@media (min-width: 1800px) {
+  body {
+    grid-template-columns:
+      [full-start]    minmax(40px, 450px)
+      [content-start] 1fr
+      [col3-start]    1fr
+      [content-end]   minmax(40px, 450px)
+      [full-end];
+  }
+}
 
 /* ── Tablet — 769px to 1024px ─────────── */
 @media (max-width: 1024px) {
