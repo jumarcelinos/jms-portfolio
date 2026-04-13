@@ -65,6 +65,13 @@ body {
   /* rows stack naturally — no row gap */
 }
 
+/* Semantic wrapper — spans full grid and passes column tracks to child sections */
+main {
+  display: grid;
+  grid-column: full-start / full-end;
+  grid-template-columns: subgrid;
+}
+
 img { display: block; width: 100%; height: 100%; object-fit: cover; }
 a   { color: inherit; }
 
