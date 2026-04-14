@@ -9,7 +9,14 @@
   padding: 0;
 }
 
-html { scroll-behavior: smooth; }
+html,
+body {
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 a:hover { text-decoration: underline; }
 
@@ -58,8 +65,8 @@ body {
   display: grid;
   grid-template-columns:
     [full-start]    minmax(40px, 120px)
-    [content-start] 1fr
-    [col3-start]    1fr
+    [content-start] minmax(0, 1fr)
+    [col3-start]    minmax(0, 1fr)
     [content-end]   minmax(40px, 120px)
     [full-end];
   /* rows stack naturally — no row gap */
@@ -170,7 +177,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 200;
+  z-index: 400;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -231,13 +238,24 @@ header {
 .scroll-header.sidebar-open .menu-toggle       { display: none; }
 .scroll-header.sidebar-open .scroll-header-close { display: inline-flex; }
 
+/* Wordmark — hidden on desktop, shown on mobile only */
+.scroll-header-wordmark {
+  display: none;
+  font-family: var(--font-body);
+  font-size: var(--text-btn);
+  font-weight: 700;
+  color: var(--dark);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 /* ── Sidebar nav overlay — opens from right on hamburger click ── */
 .nav-sidebar-backdrop {
   display: none;
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
-  z-index: 198;
+  z-index: 299;
 }
 .nav-sidebar-backdrop.is-open { display: block; }
 
@@ -248,7 +266,7 @@ header {
   bottom: 0;
   width: 320px;
   background: var(--dark);
-  z-index: 199;
+  z-index: 300;
   display: flex;
   flex-direction: column;
   padding: var(--space-xl) var(--space-lg);
@@ -592,6 +610,15 @@ nav a:hover .nav-label { text-decoration: underline; text-underline-offset: 3px;
   font-weight: 700;
   color: var(--dark);
   letter-spacing: 0.03em;
+}
+
+/* On desktop: name and role sit inline, separated by an en dash */
+.hero-footer-left {
+  display: inline-flex;
+  align-items: center;
+}
+.hero-footer-role::before {
+  content: ' \2013 \00A0';
 }
 
 
@@ -2738,7 +2765,9 @@ footer {
 /* ── Social icons (now inside location row) ── */
 .about-modal-social {
   display: flex;
+  justify-content: center;
   gap: 8px;
+  padding: var(--space-md) 0;
 }
 .about-modal-social-link {
   width: 32px;
@@ -4842,8 +4871,8 @@ nav a:focus-visible,
   body {
     grid-template-columns:
       [full-start]    minmax(40px, 450px)
-      [content-start] 1fr
-      [col3-start]    1fr
+      [content-start] minmax(0, 1fr)
+      [col3-start]    minmax(0, 1fr)
       [content-end]   minmax(40px, 450px)
       [full-end];
   }
@@ -4855,10 +4884,10 @@ nav a:focus-visible,
   /* Slightly tighter gutters */
   body {
     grid-template-columns:
-      [full-start]    minmax(24px, 1fr)
-      [content-start] 1fr
-      [col3-start]    1fr
-      [content-end]   minmax(24px, 1fr)
+      [full-start]    24px
+      [content-start] minmax(0, 1fr)
+      [col3-start]    minmax(0, 1fr)
+      [content-end]   24px
       [full-end];
   }
 
@@ -4893,10 +4922,10 @@ nav a:focus-visible,
   /* Smaller gutters so content has more room */
   body {
     grid-template-columns:
-      [full-start]    minmax(16px, 1fr)
-      [content-start] 1fr
-      [col3-start]    1fr
-      [content-end]   minmax(16px, 1fr)
+      [full-start]    16px
+      [content-start] minmax(0, 1fr)
+      [col3-start]    minmax(0, 1fr)
+      [content-end]   16px
       [full-end];
   }
 
@@ -4912,9 +4941,15 @@ nav a:focus-visible,
     background: var(--bg-header);
     border-bottom: 1px solid var(--border-subtle);
     padding: 14px 20px;
+    justify-content: space-between;
   }
-  /* When sidebar opens, the JS also adds .visible — keep consistent */
+  /* When sidebar opens, drop the background so the dark backdrop shows through */
+  .scroll-header.sidebar-open { background: transparent; border-bottom: none; }
+  /* On scroll the .visible class fires — keep the background */
   .scroll-header.visible { background: var(--bg-header); }
+
+  /* Show wordmark on mobile */
+  .scroll-header-wordmark { display: block; }
 
   /* Push hero content below the fixed scroll-header (~72px) */
   .hero { padding-top: 72px; }
@@ -4930,13 +4965,29 @@ nav a:focus-visible,
   .hero-inner    { padding: var(--space-xl) var(--space-md); }
 
 
-  /* ── About section ── */
-  /* Disable fixed background-attachment (causes issues on iOS) */
-  .about { background-attachment: scroll; padding: 0; }
+  /* ── Hero footer: stack all three lines vertically ── */
+  .hero-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .hero-footer-left {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .hero-footer-role::before { content: none; }
+  /* Name slightly larger; location drops to regular weight */
+  .hero-footer-name     { font-size: var(--text-btn); }
+  .hero-footer-location { font-weight: 400; }
 
-  /* Stack the two-column layout to full width */
-  .about-left  { grid-column: content-start / content-end; }
-  .about-right { grid-column: content-start / content-end; }
+
+  /* ── About section ── */
+  /* Disable fixed background-attachment and remove bg image on mobile */
+  .about { background-attachment: scroll; background-image: none; padding: 0; }
+
+  /* Columns span the full width (no gutters) */
+  .about-left  { grid-column: full-start / full-end; }
+  .about-right { grid-column: full-start / full-end; }
 
   /* Give inner wrappers comfortable padding */
   .about-left-inner,
@@ -4954,8 +5005,10 @@ nav a:focus-visible,
 
   /* ── Skills ── */
   /* Collapse 5-column skills grid to a single column */
-  .skills-grid    { grid-template-columns: 1fr; }
+  .skills-grid    { grid-template-columns: 1fr; row-gap: var(--space-lg); }
   .skills-divider { display: none; }
+  /* Language bars: give the chart a fixed height so level differences are clear */
+  .lang-list { min-height: 180px; }
 
 
   /* ── Work grid ── */
@@ -4976,6 +5029,69 @@ nav a:focus-visible,
   .blog-img  { width: 100%; height: 220px; }
   .blog-rect { min-height: 220px; }
 
+  /* ── Blog page ── */
+  /* Push intro below fixed scroll header */
+  .blog-pg-intro { padding-top: calc(var(--space-xl) + 72px); }
+  /* One post per row */
+  .blog-pg-list-inner { grid-template-columns: 1fr; }
+
+
+  /* ── About accordions ── */
+  /* Label: flexbox — badge + title + toggle on one line, centered vertically */
+  .about-accordions > .about-vtab--experience .about-vtab-label,
+  .about-accordions > .about-vtab--skills .about-vtab-label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: var(--space-sm);
+    column-gap: var(--space-xs);
+    padding: var(--space-lg) var(--space-md);
+    min-height: unset;
+    position: static;
+  }
+
+  /* Title: flex:1 so it fills the line, toggle pushed to far right */
+  .about-accordions > .about-vtab--experience .about-vtab-text,
+  .about-accordions > .about-vtab--skills .about-vtab-text {
+    flex: 1;
+    min-width: 0;
+    grid-column: unset;
+    font-size: 32px;
+    align-items: center;
+    order: 1;
+  }
+
+  /* Badge: reset desktop offset — centering handles alignment now */
+  .about-accordions > .about-vtab--experience .vtab-label-badge,
+  .about-accordions > .about-vtab--skills .vtab-label-badge {
+    margin-top: 0;
+  }
+
+  /* Toggle: sits inline at the right end, vertically centered */
+  .about-accordions > .about-vtab--experience .about-vtab-toggle,
+  .about-accordions > .about-vtab--skills .about-vtab-toggle {
+    position: static;
+    top: unset;
+    right: unset;
+    grid-column: unset;
+    justify-self: unset;
+    flex-shrink: 0;
+    align-self: center;
+    order: 2;
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  /* Desc: wraps to its own row below the title + toggle */
+  .about-accordions > .about-vtab--experience .about-vtab-desc,
+  .about-accordions > .about-vtab--skills .about-vtab-desc {
+    flex-basis: 100%;
+    grid-column: unset;
+    grid-row: unset;
+    order: 3;
+    padding-bottom: var(--space-sm);
+  }
+
 
   /* ── Contact ── */
   /* Stack left (heading) and right (form) columns */
@@ -4992,7 +5108,12 @@ nav a:focus-visible,
 
 
   /* ── Footer ── */
-  .footer-row { grid-template-columns: 1fr; }
+  .footer-row { grid-template-columns: minmax(0, 1fr); }
+  .footer-col-wrap { padding: var(--space-lg) var(--space-md); }
+  /* Tighter vertical padding for the Explore / Contact / Follow columns */
+  .footer-col-nav-wrap,
+  .footer-col-contact,
+  .footer-col-follow { padding-top: var(--space-sm); padding-bottom: var(--space-sm); }
 
 
   /* ── About modal ── */
@@ -5003,5 +5124,41 @@ nav a:focus-visible,
     grid-template-columns: 1fr;
     padding: var(--space-lg) var(--space-md);
   }
+  /* Photo: wider on mobile */
+  .about-modal-photo { width: 85%; }
+
+
+  /* ── Blog post modals ── */
+  /* Reduce the heavy 140px horizontal padding to something comfortable */
+  .blog-modal-content {
+    padding: var(--space-lg) var(--space-md) 0;
+  }
+  /* Photo block: tighter padding so image breathes without eating the screen */
+  .blog-modal-photo-block {
+    padding: var(--space-md);
+  }
+  /* Cover image and rect: fill available width instead of fixed 340px */
+  .blog-modal-cover {
+    max-width: 100%;
+    height: auto;
+  }
+  .blog-modal-cover-rect {
+    width: 100%;
+  }
+  /* Meta row and divider: match reduced side padding */
+  .blog-modal-meta-row {
+    padding: 0 var(--space-md) var(--space-md);
+  }
+  .blog-modal-section-divider {
+    margin: 0 var(--space-md);
+  }
+  /* Back row: match side padding */
+  .blog-modal-back-row {
+    padding: var(--space-lg) var(--space-md) var(--space-xl);
+  }
+  /* Remove tag from header — not enough room on mobile */
+  .blog-modal-header-tag { display: none; }
+  /* Date: right-aligned */
+  .blog-modal-date { text-align: right; margin-left: auto; }
 
 }
